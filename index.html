@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoQuest</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HOME SCREEN -->
+    <div id="home-screen" class="screen">
+
+        <div class="globe">🌍</div>
+
+        <h1>ECOQUEST</h1>
+
+        <p class="tagline">
+            Save Your Community. Shape the Future.
+        </p>
+
+        <p class="description">
+            Make smart environmental decisions and build
+            a greener, healthier community.
+        </p>
+
+        <button onclick="startGame()">
+            START GAME 🚀
+        </button>
+
+        <p class="small-text">
+            A Climate Change Awareness Game
+        </p>
+
+    </div>
+
+
+    <!-- GAME SCREEN -->
+    <div id="game-screen" class="screen hidden">
+
+        <h1>Welcome, Eco Manager! 🌱</h1>
+
+        <p class="game-intro">
+            Your community needs your help!
+        </p>
+
+        <div class="stats">
+
+            <div class="stat-box">
+                💰
+                <h3>Budget</h3>
+                <p id="budget">100</p>
+            </div>
+
+            <div class="stat-box">
+                🌱
+                <h3>Eco Score</h3>
+                <p id="eco-score">0</p>
+            </div>
+
+            <div class="stat-box">
+                😊
+                <h3>Well-being</h3>
+                <p id="well-being">50</p>
+            </div>
+
+        </div>
+
+
+        <div class="mission-box">
+
+            <h2>⚡ Level 1: Energy Crisis</h2>
+
+            <p>
+                Electricity demand has increased and pollution
+                levels are rising in your community.
+            </p>
+
+            <p>
+                <strong>What should you do?</strong>
+            </p>
+
+            <div class="choices decision-section">
+
+    <h3>🎯 Choose Your Strategy</h3>
+
+    <button onclick="chooseOption(10, 5, 5)">
+
+        <span class="choice-badge">A</span>
+
+        <span class="choice-content">
+            <strong>🏭 Build another fossil-fuel power plant</strong>
+
+            <small>
+                💰 Cost: 10 &nbsp; | &nbsp;
+                🌱 Eco: +5 &nbsp; | &nbsp;
+                😊 Well-being: +5
+            </small>
+        </span>
+
+    </button>
+
+
+    <button onclick="chooseOption(20, 12, 8)">
+
+        <span class="choice-badge">B</span>
+
+        <span class="choice-content">
+            <strong>💡 Introduce energy-efficient appliances</strong>
+
+            <small>
+                💰 Cost: 20 &nbsp; | &nbsp;
+                🌱 Eco: +12 &nbsp; | &nbsp;
+                😊 Well-being: +8
+            </small>
+        </span>
+
+    </button>
+
+
+    <button onclick="chooseOption(35, 20, 10)">
+
+        <span class="choice-badge">C</span>
+
+        <span class="choice-content">
+            <strong>☀️ Install community solar panels</strong>
+
+            <small>
+                💰 Cost: 35 &nbsp; | &nbsp;
+                🌱 Eco: +20 &nbsp; | &nbsp;
+                😊 Well-being: +10
+            </small>
+        </span>
+
+    </button>
+
+</div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
