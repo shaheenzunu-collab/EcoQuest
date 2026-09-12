@@ -6,7 +6,7 @@
 const GOOGLE_SCRIPT_URL =
     "https://script.google.com/macros/s/AKfycbwLX2ntMnAVxVQSZiUDIjMoTxyfwnhAD_m14PswfKkhJ68SOUrX9RGTDHIL84MUXrQ/exec";
 // ============================================================
-// 🎮 GAME STATE
+// 🎮 GAME STATE 
 // ============================================================
 let budget = 100;
 let wellBeing = 50;
