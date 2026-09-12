@@ -652,7 +652,8 @@ function loadCentralDashboardData() {
 
     const dashboardURL =
         GOOGLE_SCRIPT_URL +
-        "?callback=" +
+        "?action=dashboard" +
+        "&callback=" +
         encodeURIComponent(callbackName) +
         "&t=" +
         Date.now();
