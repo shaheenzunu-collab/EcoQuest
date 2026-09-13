@@ -651,12 +651,12 @@ function loadCentralDashboardData() {
     };
 
     const dashboardURL =
-        GOOGLE_SCRIPT_URL +
-        "?action=dashboard" +
-        "&callback=" +
-        encodeURIComponent(callbackName) +
-        "&t=" +
-        Date.now();
+    GOOGLE_SCRIPT_URL +
+    "?action=dashboard" +
+    "&callback=" +
+    encodeURIComponent(callbackName) +
+    "&t=" +
+    Date.now();
 
     console.log(
         "🌐 Loading dashboard:",
