@@ -621,7 +621,7 @@ function loadCentralDashboardData() {
 
     let finished = false;
 
-    // Remove any old callback
+    // Remove previous callback if it exists
     delete window[callbackName];
 
     window[callbackName] = function(data) {
@@ -630,17 +630,14 @@ function loadCentralDashboardData() {
 
         finished = true;
 
-        console.log("✅ Dashboard data received:", data);
+        console.log("✅ DASHBOARD DATA RECEIVED:", data);
 
         delete window[callbackName];
         script.remove();
 
         if (!data || data.success !== true) {
 
-            console.error(
-                "❌ Dashboard returned an error:",
-                data
-            );
+            console.error("❌ DASHBOARD ERROR:", data);
 
             showDashboardError(
                 data?.error || "Unable to load community data."
@@ -649,8 +646,11 @@ function loadCentralDashboardData() {
             return;
         }
 
+        console.log("🎉 Rendering dashboard...");
+
         renderCentralDashboard(data);
     };
+
 
     const dashboardURL =
         GOOGLE_SCRIPT_URL +
@@ -660,13 +660,16 @@ function loadCentralDashboardData() {
         "&t=" +
         Date.now();
 
+
     console.log(
-        "🌐 Loading dashboard:",
+        "🌐 DASHBOARD URL:",
         dashboardURL
     );
 
+
     script.src = dashboardURL;
     script.async = true;
+
 
     script.onerror = function() {
 
@@ -678,8 +681,7 @@ function loadCentralDashboardData() {
         script.remove();
 
         console.error(
-            "❌ Could not load Google Apps Script:",
-            dashboardURL
+            "❌ GOOGLE APPS SCRIPT FAILED TO LOAD"
         );
 
         showDashboardError(
@@ -687,7 +689,9 @@ function loadCentralDashboardData() {
         );
     };
 
+
     document.body.appendChild(script);
+
 
     setTimeout(function() {
 
@@ -699,8 +703,7 @@ function loadCentralDashboardData() {
         script.remove();
 
         console.error(
-            "⏰ Dashboard request timed out:",
-            dashboardURL
+            "⏰ DASHBOARD REQUEST TIMED OUT"
         );
 
         showDashboardError(
