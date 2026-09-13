@@ -615,12 +615,14 @@ function showSurveyResults() {
 
 function loadCentralDashboardData() {
 
-    const callbackName =
-        "ecoQuestDashboard_" + Date.now();
+    const callbackName = "ecoQuestDashboardCallback";
 
     const script = document.createElement("script");
 
     let finished = false;
+
+    // Remove any old callback
+    delete window[callbackName];
 
     window[callbackName] = function(data) {
 
@@ -651,12 +653,12 @@ function loadCentralDashboardData() {
     };
 
     const dashboardURL =
-    GOOGLE_SCRIPT_URL +
-    "?action=dashboard" +
-    "&callback=" +
-    encodeURIComponent(callbackName) +
-    "&t=" +
-    Date.now();
+        GOOGLE_SCRIPT_URL +
+        "?action=dashboard" +
+        "&callback=" +
+        callbackName +
+        "&t=" +
+        Date.now();
 
     console.log(
         "🌐 Loading dashboard:",
@@ -676,7 +678,8 @@ function loadCentralDashboardData() {
         script.remove();
 
         console.error(
-            "❌ Could not load Google Apps Script."
+            "❌ Could not load Google Apps Script:",
+            dashboardURL
         );
 
         showDashboardError(
@@ -696,14 +699,15 @@ function loadCentralDashboardData() {
         script.remove();
 
         console.error(
-            "⏰ Dashboard request timed out."
+            "⏰ Dashboard request timed out:",
+            dashboardURL
         );
 
         showDashboardError(
             "The dashboard took too long to respond. Please try again."
         );
 
-    }, 10000);
+    }, 15000);
 }
 function renderCentralDashboard(data) {
     const box = document.querySelector(".mission-box");
