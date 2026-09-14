@@ -615,14 +615,13 @@ function showSurveyResults() {
 
 function loadCentralDashboardData() {
 
-    const callbackName = "ecoQuestDashboardCallback";
+    const callbackName =
+        "ecoQuestDashboardCallback_" + Date.now();
 
-    const script = document.createElement("script");
+    const script =
+        document.createElement("script");
 
     let finished = false;
-
-    // Remove previous callback if it exists
-    delete window[callbackName];
 
     window[callbackName] = function(data) {
 
@@ -633,20 +632,29 @@ function loadCentralDashboardData() {
         console.log("✅ DASHBOARD DATA RECEIVED:", data);
 
         delete window[callbackName];
-        script.remove();
+
+        if (script.parentNode) {
+            script.parentNode.removeChild(script);
+        }
 
         if (!data || data.success !== true) {
 
-            console.error("❌ DASHBOARD ERROR:", data);
+            console.error(
+                "❌ DASHBOARD ERROR:",
+                data
+            );
 
             showDashboardError(
-                data?.error || "Unable to load community data."
+                data?.error ||
+                "Unable to load community data."
             );
 
             return;
         }
 
-        console.log("🎉 Rendering dashboard...");
+        console.log(
+            "🎉 Rendering dashboard..."
+        );
 
         renderCentralDashboard(data);
     };
@@ -656,7 +664,7 @@ function loadCentralDashboardData() {
         GOOGLE_SCRIPT_URL +
         "?action=dashboard" +
         "&callback=" +
-        callbackName +
+        encodeURIComponent(callbackName) +
         "&t=" +
         Date.now();
 
@@ -678,7 +686,10 @@ function loadCentralDashboardData() {
         finished = true;
 
         delete window[callbackName];
-        script.remove();
+
+        if (script.parentNode) {
+            script.parentNode.removeChild(script);
+        }
 
         console.error(
             "❌ GOOGLE APPS SCRIPT FAILED TO LOAD"
@@ -700,7 +711,10 @@ function loadCentralDashboardData() {
         finished = true;
 
         delete window[callbackName];
-        script.remove();
+
+        if (script.parentNode) {
+            script.parentNode.removeChild(script);
+        }
 
         console.error(
             "⏰ DASHBOARD REQUEST TIMED OUT"
@@ -710,7 +724,7 @@ function loadCentralDashboardData() {
             "The dashboard took too long to respond. Please try again."
         );
 
-    }, 15000);
+    }, 20000);
 }
 function renderCentralDashboard(data) {
     const box = document.querySelector(".mission-box");
