@@ -4,7 +4,7 @@
 // ============================================================
 
 const GOOGLE_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbwLX2ntMnAVxVQSZiUDIjMoTxyfwnhAD_m14PswfKkhJ68SOUxR9XGTDHIL84MUXrQ/exec";
+    "https://script.google.com/macros/s/AKfycbwLX2ntMnAVxVQSZiUDIjMoTxyfwnhAD_m14PswfKkhJ68SOUxR9RGTDHIL84MUXrQ/exec";
 // ============================================================
 // 🎮 GAME STATE 
 // ============================================================
