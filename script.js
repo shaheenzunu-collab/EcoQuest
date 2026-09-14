@@ -629,8 +629,12 @@ function loadCentralDashboardData() {
 
         finished = true;
 
-        console.log("✅ DASHBOARD DATA RECEIVED:", data);
+        console.log(
+            "✅ DASHBOARD DATA RECEIVED:",
+            data
+        );
 
+        // Remove callback only AFTER successful response
         delete window[callbackName];
 
         if (script.parentNode) {
@@ -685,15 +689,21 @@ function loadCentralDashboardData() {
 
         finished = true;
 
-        delete window[callbackName];
-
-        if (script.parentNode) {
-            script.parentNode.removeChild(script);
-        }
-
         console.error(
             "❌ GOOGLE APPS SCRIPT FAILED TO LOAD"
         );
+
+        // Give the browser a little time in case
+        // the Google redirect is still completing.
+        setTimeout(function() {
+
+            delete window[callbackName];
+
+            if (script.parentNode) {
+                script.parentNode.removeChild(script);
+            }
+
+        }, 5000);
 
         showDashboardError(
             "Could not connect to the Google Sheets dashboard."
@@ -704,27 +714,40 @@ function loadCentralDashboardData() {
     document.body.appendChild(script);
 
 
+    // Give Google Apps Script more time.
+    // IMPORTANT: Do NOT delete the callback here.
+    setTimeout(function() {
+
+        if (finished) return;
+
+        console.warn(
+            "⏳ Dashboard is taking longer than expected..."
+        );
+
+    }, 20000);
+
+
+    // Final timeout
     setTimeout(function() {
 
         if (finished) return;
 
         finished = true;
 
-        delete window[callbackName];
-
-        if (script.parentNode) {
-            script.parentNode.removeChild(script);
-        }
-
         console.error(
-            "⏰ DASHBOARD REQUEST TIMED OUT"
+            "⏰ DASHBOARD REQUEST FAILED AFTER 60 SECONDS"
         );
+
+        /*
+         * Do NOT immediately delete the callback.
+         * Google may still be returning the response.
+         */
 
         showDashboardError(
-            "The dashboard took too long to respond. Please try again."
+            "The dashboard is taking too long to respond. Please try again."
         );
 
-    }, 20000);
+    }, 60000);
 }
 function renderCentralDashboard(data) {
     const box = document.querySelector(".mission-box");
